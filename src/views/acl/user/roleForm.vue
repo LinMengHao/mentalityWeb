@@ -7,7 +7,7 @@
     </el-checkbox-group>
     </br>
     <el-button :disabled="saveBtnDisabled" type="primary" @click="update">保存</el-button>
-    
+
   </div>
 </template>
 
@@ -29,25 +29,27 @@ export default {
       };
     },
     created () {
-      this.init()  
+      this.init()
     },
     methods: {
       init(){
           if (this.$route.params && this.$route.params.id) {
                 this.userId = this.$route.params.id
                 this.getById(this.userId)
-            } 
+            }
       },
       getById(userId){
           userApi.getAssign(userId).then(response => {
               var jsonObj = response.data.assignRoles
               this.checkedCities = this.getJsonToList(jsonObj,"id")
               this.cities = response.data.allRolesList
+            this.isIndeterminate = this.checkedItems.length > 0 && this.checkedItems.length < this.items.length;
+            this.checkAll = this.checkedItems.length === this.cities.length;
           })
       },
       //把json数据转成string再转成对象，根据Key获取value数据
       getJsonToList(json,key){
-        
+
           //把JSON字符串转成对象
           var list = JSON.parse(JSON.stringify(json));
           //var list = JSON.parse(json)
@@ -57,14 +59,14 @@ export default {
              strText.push(list[i][key])
           }
           return strText;
-        
+
       },
       handleCheckAllChange(val) {
-        this.checkedCities = val ? this.cities : [];
+        this.checkedCities = val ? this.getJsonToList(this.cities,"id") : [];
         this.isIndeterminate = false;
       },
       handleCheckedCitiesChange(value) {
-      
+
         let checkedCount = value.length;
         this.checkAll = checkedCount === this.cities.length;
         this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
