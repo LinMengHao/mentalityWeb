@@ -41,7 +41,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/system/psychologistList',
     name: 'System',
-    meta: { title: '讲师管理', icon: 'el-icon-s-help' },
+    meta: { title: '讲师管理', icon: 'user' },
     children: [
       {
         path: 'psychologistList',
@@ -64,7 +64,142 @@ export const constantRouterMap = [
       }
     ]
   },
+  {
+    path: '/subject',
+    component: Layout,
+    redirect: '/subject/list',
+    name: '课程分类管理',
+    meta: { title: '课程分类管理', icon: 'tree-table' },
+    children: [
+      {
+        path: 'list',
+        name: '课程分类列表',
+        component: () => import('@/views/subject/index'),
+        meta: { title: '课程分类列表', icon: 'tree' }
+      },
+      {
+        path: 'save',
+        name: '添加课程分类',
+        component: () => import('@/views/subject/save'),
+        meta: { title: '添加课程分类', icon: 'excel'}
+      },
+    ]
+  },
+  {
+    path: '/course',
+    component: Layout,
+    redirect: '/course/list',
+    name: '课程管理',
+    meta: { title: '课程管理', icon: 'education' },
+    children: [
+      {
+        path: 'list',
+        name: '课程列表',
+        component: () => import('@/views/course/index'),
+        meta: { title: '课程列表', icon: 'list' }
+      },
+      {
+        path: 'save',
+        name: '添加课程',
+        component: () => import('@/views/course/info'),
+        meta: { title: '添加课程', icon: 'education'}
+      },
+      {
+        path: 'info/:id',
+        name: 'EduCourseInfoEdit',
+        component: () => import('@/views/course/info'),
+        meta: {
+          title: '编辑课程基本信息',
+          noCache: true
+        },
+        hidden: true
+      },
+      {
+        path: 'chapter/:id',
+        name: 'EduCourseChapterEdit',
+        component: () => import('@/views/course/chapter'),
+        meta: {
+          title: '编辑课程大纲',
+          noCache: true
+        },
+        hidden: true
+      },
+      {
+        path: 'publish/:id',
+        name: 'EduCoursePublishEdit',
+        component: () => import('@/views/course/publish'),
+        meta: {
+          title: '发布课程',
+          noCache: true
+        },
+        hidden: true
+      }
+    ]
+  },
+  {
+    path: '/banner',
+    component: Layout,
+    redirect: '/banner/list',
+    name: 'Banner管理',
+    meta: { title: 'Banner管理', icon: 'example' },
+    children: [
+      {
+        path: 'list',
+        name: 'Banner列表',
+        component: () => import('@/views/banner/list'),
+        meta: { title: 'Banner列表', icon: 'table' }
+      },
 
+      {
+        path: 'update/:id',
+        name: 'update',
+        component: () => import('@/views/banner/add'),
+        meta: {
+          title: '修改Banner',
+          noCache: true
+        },
+        hidden: true
+      },
+      {
+        path: 'add',
+        name: 'update',
+        component: () => import('@/views/banner/add'),
+        meta: {
+          title: '添加Banner',
+          icon: 'edit'
+        },
+      }
+    ]
+  },
+  {
+    path: '/statistics',
+    component: Layout,
+    redirect: '/statistics/table',
+    name: '统计分析',
+    meta: {
+      title: '统计分析',
+      icon: 'example'
+    },
+    children: [{
+      path: 'create',
+      name: '生成数据',
+      component: () => import('@/views/statistics/create'),
+      meta: {
+        title: '生成数据',
+        icon: 'table'
+      }
+    },
+      {
+        path: 'showLog',
+        name: '图表显示',
+        component: () => import('@/views/statistics/showLog'),
+        meta: {
+          title: '图表显示',
+          icon: 'tree'
+        }
+      },
+    ]
+  },
   {
     path: '/example',
     component: Layout,
@@ -86,7 +221,6 @@ export const constantRouterMap = [
       }
     ]
   },
-
   {
     path: '/form',
     component: Layout,
