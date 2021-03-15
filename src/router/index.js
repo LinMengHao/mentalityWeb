@@ -29,19 +29,21 @@ export const constantRoutes = [
     path: '/',
     component: Layout,
     redirect: '/dashboard',
-    name: 'Dashboard',
-    hidden: true,
-    children: [{
-      path: 'dashboard',
-      component: () => import('@/views/dashboard/index')
-    }]
+    children: [
+      {
+        path: 'dashboard',
+        component: () => import('@/views/dashboard/index'),
+        name: '“益”起行心理后台管理',
+        meta: { title: '首页', icon: 'dashboard', affix: true }
+      }
+    ]
   }];
 export const asyncRoutes = [
   {
     path: '/system',
     component: Layout,
-    redirect: '/system/psychologistList',
-    name: 'System',
+    redirect: '/system/table',
+    name: '讲师管理',
     meta: { title: '讲师管理', icon: 'user' },
     children: [
       {
@@ -199,27 +201,6 @@ export const asyncRoutes = [
           icon: 'tree'
         }
       },
-    ]
-  },
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'example' },
-    children: [
-      {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
-      }
     ]
   },
   {
